@@ -35,7 +35,9 @@ const usePickContext = (Context, attrName) => {
   return data;
 };
 const BtnList = () => {
-  const btnList = usePickContext(TopContext, 'btnList')
+  // 一使用这个方法，就拿不到值
+  // const btnList = usePickContext(TopContext, 'btnList')
+  const btnList = useContext(TopContext)?.btnList;
   const selectedContext = useContext(SelectedContext);
   console.log(btnList)
   return (
