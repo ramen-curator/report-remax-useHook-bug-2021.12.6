@@ -32,8 +32,8 @@ const usePickContext = (Context, attrName) => {
 };
 const BtnList = () => {
   // 一使用这个方法，就拿不到值
-  // const btnList = usePickContext(TopContext, 'btnList')
-  const btnList = React.useContext(TopContext)?.btnList;
+  const btnList = usePickContext(TopContext, 'btnList')
+  // const btnList = React.useContext(TopContext)?.btnList;
   console.log('从Context中取值',btnList);
   return (
     <View>
