@@ -1,8 +1,6 @@
-import React, { useState, useRef, useContext } from "react";
+import React from "react";
 import { View } from "remax/wechat";
 import { useNativeEffect } from "remax";
-
-import "./index.css";
 
 const TopContext = React.createContext(undefined);
 
@@ -25,7 +23,6 @@ const usePickContext = (Context, attrName) => {
   const context = React.useContext(Context);
 
   useNativeEffect(() => {
-    console.log("hahaha", attrName, context);
     if (context) {
       setData(context[attrName]);
     }
@@ -36,7 +33,7 @@ const usePickContext = (Context, attrName) => {
 const BtnList = () => {
   // 一使用这个方法，就拿不到值
   // const btnList = usePickContext(TopContext, 'btnList')
-  const btnList = useContext(TopContext)?.btnList;
+  const btnList = React.useContext(TopContext)?.btnList;
   console.log('从Context中取值',btnList);
   return (
     <View>
