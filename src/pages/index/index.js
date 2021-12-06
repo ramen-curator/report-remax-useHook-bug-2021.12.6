@@ -32,9 +32,9 @@ const usePickContext = (Context, attrName) => {
 };
 const BtnList = () => {
   // 一使用这个方法，就拿不到值
-  const btnList = usePickContext(TopContext, 'btnList')
+  const btnList = usePickContext(TopContext, "btnList");
   // const btnList = React.useContext(TopContext)?.btnList;
-  console.log('从Context中取值',btnList);
+  console.log("从Context中取值", btnList);
   return (
     <View>
       {btnList?.map((b, i) => {
@@ -56,10 +56,10 @@ export default () => {
   }, []);
   return (
     <TopContext.Provider value={topData}>
-        <View>
-          {/* 按钮列表 */}
-          <BtnList />
-        </View>
+      <View>
+        {/* 按钮列表 */}
+        <BtnList />
+      </View>
     </TopContext.Provider>
   );
 };
