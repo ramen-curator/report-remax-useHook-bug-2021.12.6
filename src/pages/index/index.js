@@ -5,7 +5,6 @@ import { useNativeEffect } from "remax";
 import "./index.css";
 
 const TopContext = React.createContext(undefined);
-const SelectedContext = React.createContext(null);
 
 const doFakeAPI = () => {
   return new Promise((resolve, reject) => {
@@ -26,7 +25,7 @@ const usePickContext = (Context, attrName) => {
   const context = React.useContext(Context);
 
   useNativeEffect(() => {
-    console.log('hahaha',attrName,context)
+    console.log("hahaha", attrName, context);
     if (context) {
       setData(context[attrName]);
     }
@@ -38,26 +37,11 @@ const BtnList = () => {
   // 一使用这个方法，就拿不到值
   // const btnList = usePickContext(TopContext, 'btnList')
   const btnList = useContext(TopContext)?.btnList;
-  const selectedContext = useContext(SelectedContext);
-  console.log(btnList)
+  console.log('从Context中取值',btnList);
   return (
     <View>
       {btnList?.map((b, i) => {
-        return (
-          <View
-            key={i.toString()}
-            onClick={() => {
-              selectedContext?.setSelectedId(b.id);
-            }}
-            style={
-              selectedContext?.selectedId === b.id
-                ? { backgroundColor: "greenyellow" }
-                : {}
-            }
-          >
-            {b.name}
-          </View>
-        );
+        return <View key={i.toString()}>{b.name}</View>;
       })}
     </View>
   );
@@ -69,28 +53,16 @@ export default () => {
   // 一开始时，调API，成功后值存到state里。这个state会传给TopContext;
   useNativeEffect(() => {
     doFakeAPI().then((data) => {
-      console.log('do!',data)
+      console.log("doFakeAPI 回调值", data);
       setTopData(data);
     });
   }, []);
-  const [selectedId, setSelectedId] = useState();
   return (
     <TopContext.Provider value={topData}>
-      <SelectedContext.Provider
-        value={{
-          selectedId,
-          setSelectedId,
-        }}
-      >
         <View>
           {/* 按钮列表 */}
           <BtnList />
-          <View>
-            {/* 显示选中按钮的id */}
-            {selectedId}
-          </View>
         </View>
-      </SelectedContext.Provider>
     </TopContext.Provider>
   );
 };
